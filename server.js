@@ -1,21 +1,35 @@
 const express = require('express');
 
 const app = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 4001;
+app.use(express.json())
 
 // routes will go here
 
-app.get('/api/users', function(req, res) {
-  const user_id = req.query.id;
-  const token = req.query.token;
-  const geo = req.query.geo;
+app.post('/', (req, res) => {
+	console.log(req.body)
+	res.send(req.body);
+})
 
-  res.send({
-    'user_id': user_id,
-    'token': token,
-    'geo': geo
-  });
-});
+app.get('/taches', (req,res) => {
+    res.status(200).json(taches)
+})
+
+app.get('/taches/:id', (req,res) => {
+    const id = parseInt(req.params.id)
+    const tache = taches.find(taches => tache.id === id)
+    res.status(200).json(tache)
+})
+
+app.post('/taches', (req,res) => {
+    taches.push(req.body)
+    res.status(200).json(taches)
+})
+
+app.post('/taches', (req,res) => {
+    taches.push(req.body)
+    res.status(200).json(taches)
+})
 
 app.listen(port);
 console.log('Server started at http://localhost:' + port);
